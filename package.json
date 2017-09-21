@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:dev": "nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,7 +12,15 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.1",
+    "eslint": "^4.7.1",
     "express": "^4.15.4",
-    "morgan": "^1.8.2"
+    "logger": "0.0.1",
+    "morgan": "^1.8.2",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
