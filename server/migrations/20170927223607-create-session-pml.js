@@ -10,8 +10,13 @@ module.exports = {
       },
       session_id: {
         type: Sequelize.STRING,
-        primaryKey : true,
-        allowNull : false
+        allowNull : false,
+        onDelete : 'CASCADE',
+        references : {
+          model : 'Sessions',
+          key : 'session_id',
+          as : 'session_id'
+        }
       },
       pml_file_ids: {
         type: Sequelize.ARRAY(Sequelize.STRING)

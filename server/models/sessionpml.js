@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     session_id:{
       type : DataTypes.STRING,
       allowNull : false,
-      primaryKey : true
+      //primaryKey : true
     },
 
     pml_file_ids:{
@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  //Add constraints for session
+  SessionPML.associate = (models) => {
+    SessionPML.belongsTo(models.Sessions,{
+      foreignKey:'session_id',
+      onDelete : 'CASCADE'
+    });
+  }
   
   return SessionPML;
 };

@@ -40,7 +40,13 @@ module.exports = (sequelize, DataTypes) => {
 
   });
 
-  //Add constraints for Sessionss
+  //Add constraints for Sessions
+
+  Session.associate = (models) =>{
+    Session.hasOne(models.SessionPML,{
+      foreignKey:'session_id',   
+    });
+  }
 
   return Sessions;
 };
