@@ -1,29 +1,24 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Session_PMLs', {
+    return queryInterface.createTable('SessionPMLs', {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
+        //primaryKey: true,
         type: Sequelize.INTEGER
       },
       session_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        primaryKey : true,
+        allowNull : false
       },
-
-      pml_file_ids:{
+      pml_file_ids: {
         type: Sequelize.ARRAY(Sequelize.STRING)
       },
-
-      array_time_interval:{
+      pml_file_interval: {
         type: Sequelize.INTEGER
       },
-
-      video_file_id:{
-        type: Sequelize.STRING
-      },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -35,6 +30,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Session_PMLs');
+    return queryInterface.dropTable('SessionPMLs');
   }
 };

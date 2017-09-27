@@ -1,15 +1,17 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('MBU_Outputs', {
+    return queryInterface.createTable('MBUOutputs', {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
+        //primaryKey: true,
         type: Sequelize.INTEGER
       },
       mbu_output_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false,
+        primaryKey : true
       },
       pml_file_ids: {
         type: Sequelize.ARRAY(Sequelize.STRING)
@@ -18,13 +20,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       smiling_score: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.INTEGER
       },
       frowning_score: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.INTEGER
       },
-      look_at_audience_score: {
-        type: Sequelize.DOUBLE
+      attention_score: {
+        type: Sequelize.INTEGER
       },
       overall_score: {
         type: Sequelize.DOUBLE
@@ -40,6 +42,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('MBU_Outputs');
+    return queryInterface.dropTable('MBUOutputs');
   }
 };
