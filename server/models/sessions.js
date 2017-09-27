@@ -1,4 +1,7 @@
 'use strict';
+
+//import Session_PML from './session_pml';
+
 module.exports = (sequelize, DataTypes) => {
   var Sessions = sequelize.define('Sessions', {
     user_id:{
@@ -19,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.INTEGER
     }
   });
-  
+
+  //Session.belongsTo(Session_PML);
+
   return Sessions;
 };

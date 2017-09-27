@@ -11,6 +11,19 @@ module.exports = {
       session_id: {
         type: Sequelize.STRING
       },
+
+      pml_file_ids:{
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
+
+      array_time_interval:{
+        type: Sequelize.INTEGER
+      },
+
+      video_file_id:{
+        type: Sequelize.STRING
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

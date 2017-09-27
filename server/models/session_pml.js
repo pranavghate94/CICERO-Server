@@ -1,4 +1,6 @@
 'use strict';
+
+
 module.exports = (sequelize, DataTypes) => {
   const Session_PML = sequelize.define('Session_PML', {
     session_id: {
@@ -18,5 +20,6 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING
     }
   });
+
   return Session_PML;
 };
