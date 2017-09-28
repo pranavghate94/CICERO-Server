@@ -16,5 +16,11 @@ module.exports = (sequelize, DataTypes) => {
 
   //Add association with other tables for User
 
+  Users.associate = (models) => {
+    Users.hasOne(models.Sessions,{
+      foreign_key : 'user_id'
+    });
+  }
+
   return Users;
 };

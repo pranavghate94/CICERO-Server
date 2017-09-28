@@ -46,6 +46,21 @@ module.exports = (sequelize, DataTypes) => {
     Session.hasOne(models.SessionPML,{
       foreignKey:'session_id',   
     });
+
+    Session.belongsTo(models.Users,{
+      foreignKey : 'user_id',
+      onDelete : 'CASCADE'
+    });
+
+    Sessions.belongsTo(models.Audio,{
+      foreignKey : 'audio_file_id',
+      onDelete : 'CASCADE'
+    });
+
+    Session.belongsTo(models.Video,{
+      foreignKey : 'video_file_id',
+      onDelete: 'CASCADE'
+    });
   }
 
   return Sessions;

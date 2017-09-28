@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   //Add associations for Audio table
+  Audio.associate = (models) => {
+    Audio.hasOne(models.Sessions,{
+      foreignKey : 'audio_file_id'
+    });
+  }
 
   return Audio;
 };

@@ -17,5 +17,11 @@ module.exports = (sequelize, DataTypes) => {
 
   //Add associations for video file
 
+  Video.associate = (models) => {
+      Video.hasOne(models.Sessions,{
+        foreignKey : 'video_file_id'
+      });
+  }
+
   return Video;
 };

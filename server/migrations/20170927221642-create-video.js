@@ -7,7 +7,7 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER
       },
-      video_id: {
+      video_file_id: {
         type: Sequelize.STRING,
         allowNull : false,
         primaryKey : true
