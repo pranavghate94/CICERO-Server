@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     attention_frequency: {
       type: DataTypes.DOUBLE
     },
-    head_positon: {
+    head_position: {
       type: DataTypes.ARRAY(DataTypes.DOUBLE)
     },
     head_rotation: {

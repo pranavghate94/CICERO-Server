@@ -14,7 +14,7 @@ module.exports = {
     list(req, res){
         return Video
         .all()
-        .then(video => res.status(201).send(audio))
+        .then(video => res.status(201).send(video))
         .catch(error => res.status(400).send(error));
     }
 

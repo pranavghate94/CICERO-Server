@@ -28,7 +28,7 @@ module.exports = {
       attention_frequency: {
         type: Sequelize.DOUBLE
       },
-      head_positon: {
+      head_position: {
         type: Sequelize.ARRAY(Sequelize.DOUBLE)
       },
       head_rotation: {
