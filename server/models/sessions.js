@@ -42,12 +42,12 @@ module.exports = (sequelize, DataTypes) => {
 
   //Add constraints for Sessions
 
-  Session.associate = (models) =>{
-    Session.hasOne(models.SessionPML,{
+  Sessions.associate = (models) =>{
+    Sessions.hasOne(models.SessionPML,{
       foreignKey:'session_id',   
     });
 
-    Session.belongsTo(models.Users,{
+    Sessions.belongsTo(models.Users,{
       foreignKey : 'user_id',
       onDelete : 'CASCADE'
     });
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete : 'CASCADE'
     });
 
-    Session.belongsTo(models.Video,{
+    Sessions.belongsTo(models.Video,{
       foreignKey : 'video_file_id',
       onDelete: 'CASCADE'
     });

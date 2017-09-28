@@ -36,7 +36,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull : false,
         references : {
-          model : 'Audio',
+          model : 'Audios',
           key : 'audio_file_id',
           as : 'audio_file_id'
         }
@@ -47,7 +47,7 @@ module.exports = {
         type : Sequelize.STRING,
         allowNull : false,
         references : {
-          model : 'Video',
+          model : 'Videos',
           key : 'video_file_id',
           as : 'video_file_id'
         }

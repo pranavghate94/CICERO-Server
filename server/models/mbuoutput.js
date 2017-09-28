@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   
-  const MBUOutput = sequelize.create('MBUOutput',{
+  const MBUOutput = sequelize.define('MBUOutput',{
     mbu_output_id: {
       type: DataTypes.STRING,
       allowNull : false,

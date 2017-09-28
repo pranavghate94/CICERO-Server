@@ -2,13 +2,13 @@
 module.exports = (sequelize, DataTypes) => {
   
   const Video = sequelize.define('Video',{
-    video_id : {
+    video_file_id : {
       type : DataTypes.STRING,
       allowNull : false,
       primaryKey : true
     },
 
-    video_file_path : {
+    video_file_name : {
       type : DataTypes.STRING,
       allowNull : false,
       unique : true
