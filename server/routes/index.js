@@ -8,6 +8,19 @@ const userController = require('../controllers').Users;
 
 module.exports = (app) => {
 
+    //Default
+    // app.get('/',(req, res)=>{
+    //     res.status(200).send({
+    //         message : "Welcome to the CICERO API"
+    //     })
+    // });
+
+    app.get('/',(req, res)=>{
+        res.status(200).send({
+            message : 'Welcome to CICERO API'
+        })
+    });
+
     //Audio
     app.get('/api/audio',audioController.list);
     app.post('/api/audio',audioController.create);
@@ -23,18 +36,22 @@ module.exports = (app) => {
     //PML
     app.get('/api/pml',pmlController.list);
     app.post('/api/pml',pmlController.create);
+    app.get('/api/pml/:pmlfileid',pmlController.getPMLInfo);
 
     //SessionPML
     app.get('/api/sessionpml',sessionpmlController.list);
     app.post('/api/sessionpml',sessionpmlController.create);
+    app.get('/api/sessionpml/:sessionid',sessionpmlController.getPMLFiles);
 
     //Session
     app.get('/api/sessions',sessionController.list);
     app.post('/api/sessions',sessionController.create);
+    app.get('/api/sessions/:userid',sessionController.getUserSessions);
 
     //Users
     app.get('/api/users',userController.list);
     app.post('/api/users',userController.create);
+    app.get('/api/users/:userid/check',userController.check);
 
     
 }

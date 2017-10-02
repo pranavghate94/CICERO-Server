@@ -22,5 +22,15 @@ module.exports = {
         PML.all()
         .then(pml=>res.status(201).send(pml))
         .catch(error => res.status(400).send(error));
+    },
+
+    getPMLInfo(req, res){
+        PML.findAll({
+            where : {
+                pml_file_id : req.params.pmlfileid
+            },
+        })
+        .then(pml => res.status(201).send(pml))
+        .catch(error => res.status(400).send(error));
     }
 }

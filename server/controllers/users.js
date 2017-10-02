@@ -13,5 +13,15 @@ module.exports = {
         Users.all()
         .then(user => res.status(201).send(user))
         .catch(error=>res.status(400).send(error));
+    },
+
+    check(req, res){
+        Users.findOne({
+            where : {
+                user_id : req.params.userid
+            }
+        })
+        .then(user => res.status(201).send(true))
+        .catch(error => res.status(401).send(false));
     }
 }

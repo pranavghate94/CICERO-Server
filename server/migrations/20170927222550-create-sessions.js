@@ -19,7 +19,6 @@ module.exports = {
         references : {
           model : 'Users',
           key : 'user_id',
-          as : 'user_id'
         }
       },
       start_time: {

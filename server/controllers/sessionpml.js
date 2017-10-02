@@ -15,5 +15,16 @@ module.exports = {
         SessionPML.all()
         .then(sessionpml => res.status(201).send(sessionpml))
         .catch(error=>res.status(400).send(error));
+    },
+
+    getPMLFiles(req, res){
+        SessionPML.findAll({
+            where : {
+                session_id : req.params.sessionid
+            },
+            attributes : ['pml_file_ids']
+        })
+        .then(sessionpml => res.status(201).send(sessionpml))
+        .catch(error=> res.status(400).send(error));
     }
 }
