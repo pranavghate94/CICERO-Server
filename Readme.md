@@ -9,7 +9,7 @@ Back-end framework for CICERO using Node.js, PostgreSQL and Sequelize.
 
 ## Installation and Setup
 
-###__1. Set new password for the default 'postgres' user__
+### __1. Set new password for the default 'postgres' user__
 
 #### Windows
 ```
@@ -26,13 +26,13 @@ $ sudo -u postgres psql
 $ \password
 ```
 
-###__2. Create development database__
+### __2. Create development database__
 
 ```
 $ createdb -U postgres cicero_dev
 ```
 
-###__3. Migrate data from backup to development database__
+### __3. Migrate data from backup to development database__
 
 #### Windows
 
@@ -47,7 +47,7 @@ $ iconv -f utf-16le -t UTF-8 cicero_dummy.sql > cicero.sql
 $ psql -U postgres cicero_dev < ./db_dumps/cicero_dummy.sql 
 ```
 
-###__4. Install Dependencies__
+### __4. Install Dependencies__
 
 ```
 $ npm install
@@ -65,6 +65,6 @@ $ npm run start:dev
 To confirm that the server is working, open the browser and type ` http://localhost:8000/api/users ` and you should get a JSON response containing a dummy user 'BKC40506'.
 
 ## API Usage
-
+ 
 _Coming Soon.._
 
