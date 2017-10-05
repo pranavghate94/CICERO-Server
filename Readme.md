@@ -57,7 +57,7 @@ _Ignore any errors or warnings you may get, they are related to sequelize-cli_
 __5. Run Development Server__
 
 ```
-$ npm start:dev
+$ npm run start:dev
 ```
 
 ## Test Server
