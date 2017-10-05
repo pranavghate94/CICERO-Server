@@ -11,13 +11,13 @@ Back-end framework for CICERO using Node.js, PostgreSQL and Sequelize.
 
 __1. Set new password for the default 'postgres' user__
 
-### Windows
+#### Windows
 ```
 $ psql -U postgres
 $ \password
 ```
 
-### Linux
+#### Linux
 
 Linux systems create a different user for postgres access
 
@@ -34,13 +34,13 @@ $ createdb -U postgres cicero_dev
 
 __3. Migrate data from backup to development database__
 
-### Windows
+#### Windows
 
 ```
 $ psql -U postgres cicero_dev < ./db_dumps/cicero_dummy.sql
 ```
 
-### Linux
+#### Linux
 
 ```
 $ iconv -f utf-16le -t UTF-8 cicero_dummy.sql > cicero.sql 
