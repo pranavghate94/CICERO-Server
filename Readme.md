@@ -26,6 +26,8 @@ $ sudo -u postgres psql
 $ \password
 ```
 
+__IMPORTANT : You will have the change the default password set in the configuration file located in ./server/config/config.json, for the development server__
+
 ### __2. Create development database__
 
 ```
