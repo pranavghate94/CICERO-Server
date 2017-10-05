@@ -11,14 +11,13 @@ Back-end framework for CICERO using Node.js, PostgreSQL and Sequelize.
 
 1. Set new password for the default 'postgres' user
 
-* Windows
+### Windows
 ```
 $ psql -U postgres
 $ \password
-
 ```
 
-* Linux
+### Linux
 
 Linux systems create a different user for postgres access
 
