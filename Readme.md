@@ -43,7 +43,7 @@ $ psql -U postgres cicero_dev < ./db_dumps/cicero_dummy.sql
 #### Linux
 
 ```
-$ iconv -f utf-16le -t UTF-8 cicero_dummy.sql > cicero.sql 
+$ iconv -f utf-16le -t UTF-8 cicero_dummy.sql > cicero_dummy.sql 
 $ psql -U postgres cicero_dev < ./db_dumps/cicero_dummy.sql 
 ```
 
