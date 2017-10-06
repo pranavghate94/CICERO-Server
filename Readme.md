@@ -36,17 +36,9 @@ $ createdb -U postgres cicero_dev
 
 ### __3. Migrate data from backup to development database__
 
-#### Windows
 
 ```
-$ psql -U postgres cicero_dev < ./db_dumps/cicero_dummy.sql
-```
-
-#### Linux
-
-```
-$ iconv -f utf-16le -t UTF-8 cicero_dummy.sql > cicero_dummy.sql 
-$ psql -U postgres cicero_dev < ./db_dumps/cicero_dummy.sql 
+$ psql -U postgres cicero_dev < ./db_dumps/cicero.sql 
 ```
 
 ### __4. Install Dependencies__
