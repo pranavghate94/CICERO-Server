@@ -24,7 +24,9 @@ module.exports = {
             },
             attributes : ['pml_file_ids']
         })
-        .then(sessionpml => res.status(201).send(sessionpml))
+        .then(sessionpml => res.status(201).send(sessionpml[0]))
         .catch(error=> res.status(400).send(error));
     }
+
+    
 }

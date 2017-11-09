@@ -30,7 +30,8 @@ module.exports = {
                 pml_file_id : req.params.pmlfileid
             },
         })
-        .then(pml => res.status(201).send(pml))
+        .then(pml => res.status(201).send(pml[0]))
         .catch(error => res.status(400).send(error));
-    }
+    },
+
 }

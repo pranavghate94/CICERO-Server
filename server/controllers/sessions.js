@@ -30,5 +30,15 @@ module.exports = {
         })
         .then(session => res.status(201).send(session))
         .catch(error => res.status(400).send(error));
+    },
+
+    getSession(req, res){
+        Sessions.find({
+            where: {
+                session_id : req.params.session_id
+            }
+        })
+        .then(session => res.status(201).send(session))
+        .catch(err => res.status(400).send(err));
     }
 }
