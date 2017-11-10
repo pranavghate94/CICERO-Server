@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       allowNull : false,
       unique : true
+    },
+
+    session_id : {
+      type : DataTypes.STRING,
+      unique : true
     }
   });
 
@@ -20,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
   Video.associate = (models) => {
       Video.hasOne(models.Sessions,{
         foreignKey : 'video_file_id'
+      });
+
+      Video.belongsTo(models.Sessions,{
+        foreignKey : 'session_id',
+        targetKey : 'session_id'
       });
   }
 

@@ -6,6 +6,15 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       allowNull : false,
       primaryKey : true
+    },
+
+    number_of_hesitations : {
+      type : DataTypes.INTEGER,
+      allowNull : true,
+    },
+
+    transcript : {
+      type : DataTypes.STRING
     }
   });
 

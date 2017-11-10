@@ -28,6 +28,8 @@ module.exports = (app) => {
     //Video
     app.get('/api/video', videoController.list);
     app.post('/api/video', videoController.create);
+    app.get('/api/video/session/:sessionid', videoController.getSessionVideo);
+    app.get('/api/video/:videoid',videoController.getVideoInfo);
 
     //MBU Outputs
     app.get('/api/mbu',mbuController.list);
@@ -57,6 +59,9 @@ module.exports = (app) => {
 
     //Route for Video Streaming
     app.get('/video/:videoid',(req, res)=>{
+
+        //videoController.getVideoFileName(req.params.videoid)
+
         const path = 'server/files/videos/' + req.params.videoid;
         const stat = fs.statSync(path);
         const fileSize = stat.size;

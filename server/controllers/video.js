@@ -16,7 +16,25 @@ module.exports = {
         .all()
         .then(video => res.status(201).send(video))
         .catch(error => res.status(400).send(error));
-    }
+    },
 
-    
+    getVideoInfo(req, res){
+        Video.find({
+            where : {
+                video_file_id : req.params.videoid
+            },
+        })
+        .then(video => res.status(201).send(video))
+        .catch(err => res.status(400).send(err));
+    },
+
+    getSessionVideo(req, res){
+        Video.find({
+            where : {
+                session_id : req.params.sessionid
+            }
+        })
+        .then(video => res.status(201).send(video))
+        .catch(err => res.status(400).send(err));
+    }
 }
