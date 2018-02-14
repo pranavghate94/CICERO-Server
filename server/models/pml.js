@@ -36,6 +36,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     action_unit_activation: {
       type: DataTypes.ARRAY(DataTypes.BOOLEAN)
+    },
+    frame_timestamp : {
+      type : DataTypes.DOUBLE
+    },
+    session_id : {
+      type : DataTypes.STRING
     }
   });
 

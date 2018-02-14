@@ -30,6 +30,17 @@ module.exports = {
         })
         .then(mbuoutput => res.status(201).send(mbuoutput[0]))
         .catch(error => res.status(400).send(error));
+    },
+
+    getMBUScoresForSession(req, res){
+        MBUOutput.findAll({
+            where : {
+                session_id : req.params.sessionid
+            },
+            attributes : ["smiling_score","frowning_score","attention_score"]
+        })
+        .then(mbuoutput=>res.status(201).send(mbuoutput))
+        .catch(error => res.status(400).send(error));
     }
     
 }

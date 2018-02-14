@@ -35,11 +35,12 @@ module.exports = (app) => {
     app.get('/api/mbu',mbuController.list);
     app.post('/api/mbu',mbuController.create);
     app.get('/api/mbu/:sessionid',mbuController.getMBUforSession);
-
+    app.get('/api/mbu/:sessionid/data',mbuController.getMBUScoresForSession);
     //PML
     app.get('/api/pml',pmlController.list);
     app.post('/api/pml',pmlController.create);
     app.get('/api/pml/:pmlfileid',pmlController.getPMLInfo);
+    app.get('/api/pml/:sessionid/audata',pmlController.getPMLAUInfo);
 
     //SessionPML
     app.get('/api/sessionpml',sessionpmlController.list);
@@ -58,11 +59,11 @@ module.exports = (app) => {
     app.get('/api/users/:userid/check',userController.check);
 
     //Route for Video Streaming
-    app.get('/video/:videoid',(req, res)=>{
+    app.get('/video/:videofile',(req, res)=>{
 
         //videoController.getVideoFileName(req.params.videoid)
 
-        const path = 'server/files/videos/' + req.params.videoid;
+        const path = 'server/files/videos/' + req.params.videofile;
         const stat = fs.statSync(path);
         const fileSize = stat.size;
         const range = req.headers.range;

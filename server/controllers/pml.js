@@ -13,7 +13,8 @@ module.exports = {
             head_rotation : req.body.head_rotation,
             gaze_direction : req.body.gaze_direction,
             action_unit_evidence : req.body.action_unit_evidence,
-            action_unit_activation : req.body.action_unit_activation
+            action_unit_activation : req.body.action_unit_activation,
+            frame_timestamp : req.body.frame_timestamp
         })
         .then(pml=>res.status(201).send(pml))
         .catch(error=>res.status(400).send(error));
@@ -33,5 +34,16 @@ module.exports = {
         .then(pml => res.status(201).send(pml[0]))
         .catch(error => res.status(400).send(error));
     },
+
+    getPMLAUInfo(req, res){
+        PML.findAll({
+            where : {
+                session_id : req.params.sessionid
+            },
+            attributes : ["action_unit_evidence"]
+        })
+        .then(pml => res.status(201).send(pml))
+        .catch(error=>res.status(400).send(error))
+    }
 
 }
