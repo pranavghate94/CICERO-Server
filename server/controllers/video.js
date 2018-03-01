@@ -6,6 +6,7 @@ module.exports = {
         .create({
             video_file_id : req.body.video_file_id,
             video_file_name : req.body.video_file_name
+            
         })
         .then(video => res.status(201).send(video))
         .catch(error => res.status(401).send(error));
