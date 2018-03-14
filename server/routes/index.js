@@ -9,11 +9,16 @@ const fs = require("fs");
 const Stomp = require("stomp-client");
 const cheerio = require("cheerio");
 
-const destination = "/topic/madden";
+const destination = "/topic/DEFAULT_SCOPE";
 const client = new Stomp("127.0.0.1", 61613, "", "");
 
 var current_session = "sess_test";
 var pml_ctr = 8;
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
 
 module.exports = app => {
   client.connect(sessionId => {
@@ -39,13 +44,14 @@ module.exports = app => {
           pml_ctr = 0;
           break;
 
-        case "ADD_PML":
+        default:
+		  body = unescape(body).replaceAll('+',' ');
+		  console.log(body)
           var splitter = body.split(' ');
           result = splitter.slice(0,2);
           result.push(splitter.slice(2).join(' '));
-          console.log(result);
+          console.log(result[2]);
           $ = cheerio.load(result[2]);
-          //console.log($('gazeCategoryHorizontal').text());
 
           var au_evidence = [];
           var au_activation = [];
@@ -62,7 +68,7 @@ module.exports = app => {
               au_activation[j] = Boolean($(this).text());
             });
 
-          pmlController.stompCreate({
+          /*pmlController.stompCreate({
             pml_file_id: current_session + "_pml_" + String(pml_ctr),
             source_name: $("source").attr("name"),
             age: $("body").attr("age"),
@@ -87,14 +93,12 @@ module.exports = app => {
             action_unit_evidence: au_evidence,
             action_unit_activation: au_activation,
             session_id: current_session
-          });
+          });*/
 
           //console.log(k);
           pml_ctr = pml_ctr + 1;
           break;
 
-        default:
-          break;
       }
     });
   });
