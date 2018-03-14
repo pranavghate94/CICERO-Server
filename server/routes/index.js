@@ -12,8 +12,8 @@ const cheerio = require("cheerio");
 const destination = "/topic/DEFAULT_SCOPE";
 const client = new Stomp("127.0.0.1", 61613, "", "");
 
-var current_session = "sess_test";
-var pml_ctr = 8;
+var current_session = "sess404";
+var pml_ctr = 1000;
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -46,13 +46,12 @@ module.exports = app => {
 
         default:
 		  body = unescape(body).replaceAll('+',' ');
-		  console.log(body)
+		  //console.log(body)
           var splitter = body.split(' ');
           result = splitter.slice(0,2);
           result.push(splitter.slice(2).join(' '));
-          console.log(result[2]);
+          //console.log(result[2]);
           $ = cheerio.load(result[2]);
-
           var au_evidence = [];
           var au_activation = [];
 
@@ -65,10 +64,11 @@ module.exports = app => {
           $("aus")
             .find("activated")
             .each(function(j, item) {
-              au_activation[j] = Boolean($(this).text());
+              au_activation[j] = $(this).text() == "true";
             });
-
-          /*pmlController.stompCreate({
+				
+		
+          pmlController.stompCreate({
             pml_file_id: current_session + "_pml_" + String(pml_ctr),
             source_name: $("source").attr("name"),
             age: $("body").attr("age"),
@@ -81,9 +81,9 @@ module.exports = app => {
               Number($("position").attr("z"))
             ],
             head_rotation: [
-              Number($("rotation").attr("rotX")),
-              Number($("rotation").attr("rotY")),
-              Number($("rotation").attr("rotZ"))
+              Number($("rotation").attr("rotx")),
+              Number($("rotation").attr("roty")),
+              Number($("rotation").attr("rotz"))
             ],
             gaze_direction: [
               $("gazeCategoryHorizontal").text(),
@@ -92,8 +92,10 @@ module.exports = app => {
             ],
             action_unit_evidence: au_evidence,
             action_unit_activation: au_activation,
-            session_id: current_session
-          });*/
+            session_id: current_session,
+			frame_timestamp: Math.round(Number($("headPose").find("timestamp").html()))
+          });
+		  
 
           //console.log(k);
           pml_ctr = pml_ctr + 1;
