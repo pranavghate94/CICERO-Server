@@ -19,6 +19,28 @@ module.exports = {
         .then(pml=>res.status(201).send(pml))
         .catch(error=>res.status(400).send(error));
     },
+
+    stompCreate(body){
+        PML.create({
+            pml_file_id : body.pml_file_id,
+            source_name : body.source_name,
+            age : body.age,
+            gender : body.gender,
+            smile_frequency : body.smile_frequency,
+            attention_frequency : body.attention_frequency,
+            head_position : body.head_position,
+            head_rotation : body.head_rotation,
+            gaze_direction : body.gaze_direction,
+            action_unit_evidence : body.action_unit_evidence,
+            action_unit_activation : body.action_unit_activation,
+            frame_timestamp : body.frame_timestamp,
+            session_id : body.session_id
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    },
+
     list(req,res){
         PML.all()
         .then(pml=>res.status(201).send(pml))

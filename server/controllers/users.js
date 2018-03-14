@@ -1,6 +1,18 @@
 const Users = require('../models').Users;
 
 module.exports = {
+
+    stompCreate(user){
+        Users.create({
+            user_id : user,
+            number_of_sessions : 0
+        }).then(()=>{
+            console.log("User Added through STOMP");
+        }).catch(err=>{
+            console.log(err);
+        });
+    },
+
     create(req, res){
         Users.create({
             user_id : req.body.user_id,
