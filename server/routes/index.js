@@ -23,28 +23,30 @@ String.prototype.replaceAll = function(search, replacement) {
 module.exports = app => {
   client.connect(sessionId => {
     client.subscribe(destination, (body, headers) => {
-      switch (headers.type) {
+      switch (headers.MESSAGE_PREFIX) {
         case "ADD_USER":
           userController.stompCreate(body);
           console.log("User Added!");
           break;
 
-        case "ADD_SESSION":
+        case "add_session":
+		  body = unescape(body).replaceAll('+',' ');
           var components = body.split(" ");
           console.log(components);
-          sessionController.stompCreate({
-            user_id: components[0],
-            session_id: components[1],
-            duration: components[2],
-            video_file_id: components[3],
-            audio_file_id: components[4]
+          
+		  sessionController.stompCreate({
+            user_id: components[1],
+            session_id: components[2],
+            duration: components[3],
+            video_file_id: components[4],
+            audio_file_id: components[5]
           });
-          console.log("Session Added!");
-          current_session = components[1];
+		  console.log("Session Added");
+          current_session = components[2];
           pml_ctr = 0;
           break;
 
-        default:
+        case "vhmsgr":
 		  body = unescape(body).replaceAll('+',' ');
 		  //console.log(body)
           var splitter = body.split(' ');
