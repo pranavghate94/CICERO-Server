@@ -43,24 +43,12 @@ module.exports = (sequelize, DataTypes) => {
   //Add constraints for Sessions
 
   Sessions.associate = (models) =>{
-    Sessions.hasOne(models.SessionPML,{
-      foreignKey:'session_id',   
-    });
 
     Sessions.belongsTo(models.Users,{
       foreignKey : 'user_id',
       onDelete : 'CASCADE'
     });
 
-    Sessions.belongsTo(models.Audio,{
-      foreignKey : 'audio_file_id',
-      onDelete : 'CASCADE'
-    });
-
-    Sessions.belongsTo(models.Video,{
-      foreignKey : 'video_file_id',
-      onDelete: 'CASCADE'
-    });
   }
 
   return Sessions;

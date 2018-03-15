@@ -30,13 +30,16 @@ module.exports = {
     },
 
     list(req, res){
-        Sessions.all()
+        Sessions.findAll({
+            attributes : ['session_id', 'user_id', 'start_time', 'end_time', 'audio_file_id', 'video_file_id']
+        })
         .then(session => res.status(201).send(session))
         .catch(error => res.status(400).send(error));
     },
 
     getUserSessions(req, res){
         Sessions.findAll({
+            attributes : ['session_id', 'user_id', 'start_time', 'end_time', 'audio_file_id', 'video_file_id'],
             where : {
                 user_id : req.params.userid
             }
