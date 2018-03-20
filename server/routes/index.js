@@ -9,6 +9,7 @@ const fs = require("fs");
 const Stomp = require("stomp-client");
 const cheerio = require("cheerio");
 const ffmpeg = require("fluent-ffmpeg");
+const cors = require("cors");
 
 const destination = "/topic/DEFAULT_SCOPE";
 const client = new Stomp("127.0.0.1", 61613, "", "");
@@ -106,6 +107,14 @@ module.exports = app => {
 
       }
     });
+  });
+
+
+  app.use(cors());
+  app.get("/report",(req,res)=>{
+    res.status(200).send({
+      message : "BOO!"
+    })
   });
 
   app.use((req, res, next) => {
