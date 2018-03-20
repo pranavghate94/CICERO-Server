@@ -8,12 +8,13 @@ const userController = require("../controllers").Users;
 const fs = require("fs");
 const Stomp = require("stomp-client");
 const cheerio = require("cheerio");
+const ffmpeg = require("fluent-ffmpeg");
 
 const destination = "/topic/DEFAULT_SCOPE";
 const client = new Stomp("127.0.0.1", 61613, "", "");
 
-var current_session = "sess404";
-var pml_ctr = 1000;
+var current_session = " ";
+var pml_ctr = 0;
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -33,7 +34,7 @@ module.exports = app => {
 		  body = unescape(body).replaceAll('+',' ');
           var components = body.split(" ");
           console.log(components);
-          
+
 		  sessionController.stompCreate({
             user_id: components[1],
             session_id: components[2],
@@ -46,7 +47,7 @@ module.exports = app => {
           pml_ctr = 0;
           break;
 
-        case "vhmsgr":
+        case "vrPerception":
 		  body = unescape(body).replaceAll('+',' ');
 		  //console.log(body)
           var splitter = body.split(' ');
@@ -68,8 +69,8 @@ module.exports = app => {
             .each(function(j, item) {
               au_activation[j] = $(this).text() == "true";
             });
-				
-		
+
+
           pmlController.stompCreate({
             pml_file_id: current_session + "_pml_" + String(pml_ctr),
             source_name: $("source").attr("name"),
@@ -97,7 +98,7 @@ module.exports = app => {
             session_id: current_session,
 			frame_timestamp: Math.round(Number($("headPose").find("timestamp").html()))
           });
-		  
+
 
           //console.log(k);
           pml_ctr = pml_ctr + 1;
@@ -160,10 +161,12 @@ module.exports = app => {
   app.get("/api/users/:userid/check", userController.check);
 
   //Route for Video Streaming
-  app.get("/video/:videofile", (req, res) => {
+  app.get("/video/:sessionid/:videofile", (req, res) => {
     //videoController.getVideoFileName(req.params.videoid)
 
-    const path = "server/files/videos/" + req.params.videofile;
+    const path = "server/files/" + req.params.sessionid + "/" + req.params.videofile;
+
+
     const stat = fs.statSync(path);
     const fileSize = stat.size;
     const range = req.headers.range;
