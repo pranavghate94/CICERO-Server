@@ -10,6 +10,7 @@ const Stomp = require("stomp-client");
 const cheerio = require("cheerio");
 const ffmpeg = require("fluent-ffmpeg");
 const cors = require("cors");
+const WatsonHelper = require("../watson/watson.js");
 
 const destination = "/topic/DEFAULT_SCOPE";
 const client = new Stomp("127.0.0.1", 61613, "", "");
@@ -26,13 +27,24 @@ module.exports = app => {
   client.connect(sessionId => {
     client.subscribe(destination, (body, headers) => {
       switch (headers.MESSAGE_PREFIX) {
+
+        case "count_hesitations":
+          body = unescape(body).replaceAll('+',' ');
+          var audioFilePath = 'server/files/' + body.split(" ")[1];
+          const watsonHelper = new WatsonHelper("17e708ba-8eb5-4085-aba1-675a426bc53d","KPKMNZsKUmsk");
+          watsonHelper.setAudioFilePath(audioFilePath);
+          watsonHelper.recognize();
+          watsonHelper.printTranscript();
+          console.log(watsonHelper.getHesitations());
+          break;
+
         case "ADD_USER":
           userController.stompCreate(body);
           console.log("User Added!");
           break;
 
         case "add_session":
-		  body = unescape(body).replaceAll('+',' ');
+		      body = unescape(body).replaceAll('+',' ');
           var components = body.split(" ");
           console.log(components);
 

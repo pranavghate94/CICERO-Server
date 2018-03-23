@@ -6,9 +6,14 @@ class WatsonHelper{
   constructor(user_name, password){
     this.speechToText = new SpeechToText({
       username : user_name,
-      password : password
+      password : password,
+      url: 'https://stream.watsonplatform.net/speech-to-text/api/'
     });
+    this.audioFilePath = '';
+    this.transcript = '';
+    this.hesitations = 0;
   }
+
 
   countHesitations(sentence){
     var number_hes = 0;
@@ -20,33 +25,51 @@ class WatsonHelper{
     return number_hes;
   }
 
-  //Counts number of hesitations
-  countTotalHesitations(wav_file_path){
+  setAudioFilePath(audioPath){
+    this.audioFilePath = audioPath;
+    return this;
+  }
 
-    var number_of_hesitations = 0;
-    var json_result;
+  recognize(){
+
+    var done = false;
 
     var params = {
-      audio : fs.createReadStream(wav_file_path),
+      audio : fs.createReadStream(this.audioFilePath),
       content_type : 'audio/wav'
-    }
+    };
 
-    //Watson Speech-To-Text Recogniser
-    this.speechToText.recognize(params, (error ,response)=>{
+    this.speechToText.recognize(params, (error, response)=>{
       if(error){
-        console.log(error);
+        console.log(error)
       } else {
         response.results.forEach((result)=>{
           var trans = result.alternatives[0].transcript;
-          console.log(trans);
-          number_of_hesitations += this.countHesitations(trans);
-        })
-        console.log(number_of_hesitations);
+          this.transcript = this.transcript + ' ' + trans;
+          this.hesitations = this.hesitations + this.countHesitations(trans);
+          done = true;
+        });
       }
     });
 
-
+    require('deasync').loopWhile(function(){return !done;});
   }
+
+  getTranscript(){
+    this.transcript;
+  }
+
+  printTranscript(){
+    if(this.transcript.length != 'N/A')
+      console.log(this.transcript);
+    else
+      console.log("No Transcript Yet");
+  }
+
+  getHesitations(){
+    return this.hesitations;
+  }
+
 }
 
-export default WatsonHelper;
+module.exports = WatsonHelper;
