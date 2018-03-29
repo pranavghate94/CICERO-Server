@@ -8,6 +8,9 @@
     "migrate": "sequelize db:migrate",
     "db:remigrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "start:dev": "nodemon ./bin/www",
+    "build": "babel ./report/app -d build",
+    "build:client": "webpack --config ./report/webpack.config.js",
+    "build:prod": "npm run build && npm run build:client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -27,9 +30,6 @@
     "morgan": "^1.8.2",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    "react-router-dom": "^4.2.2",
     "sequelize": "^4.37.4",
     "stomp-client": "^0.9.0",
     "superagent": "^3.6.2",
@@ -37,12 +37,6 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "nodemon": "^1.12.1",
-    "webpack": "^4.4.1"
+    "nodemon": "^1.12.1"
   }
 }

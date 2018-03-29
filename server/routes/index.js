@@ -9,12 +9,9 @@ const fs = require("fs");
 const Stomp = require("stomp-client");
 const cheerio = require("cheerio");
 const ffmpeg = require("fluent-ffmpeg");
-const cors = require("cors");
 const WatsonHelper = require("../watson/watson.js");
-
 const destination = "/topic/DEFAULT_SCOPE";
 const client = new Stomp("127.0.0.1", 61613, "", "");
-
 var current_session = " ";
 var pml_ctr = 0;
 
@@ -24,6 +21,9 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 module.exports = app => {
+
+
+  //STOMP Client for ActiveMQ
   client.connect(sessionId => {
     client.subscribe(destination, (body, headers) => {
       switch (headers.MESSAGE_PREFIX) {
@@ -127,12 +127,6 @@ module.exports = app => {
     });
   });
 
-  app.use(cors());
-  app.get("/report", (req, res) => {
-    res.status(200).send({
-      message: "BOO!"
-    });
-  });
 
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
