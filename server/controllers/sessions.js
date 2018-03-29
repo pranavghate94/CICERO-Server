@@ -50,6 +50,7 @@ module.exports = {
 
     getUserSessions(req, res){
         Sessions.findAll({
+			attributes : ['user_id','session_id', 'start_time', 'end_time' ,'audio_file_id','video_file_id'],
             where : {
                 user_id : req.params.userid
             }

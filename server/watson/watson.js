@@ -9,8 +9,8 @@ class WatsonHelper{
       password : password,
       url: 'https://stream.watsonplatform.net/speech-to-text/api/'
     });
-    this.audioFilePath = '';
-    this.transcript = '';
+    this.audioFilePath = ' ';
+    this.transcript = ' ';
     this.hesitations = 0;
   }
 
@@ -56,7 +56,7 @@ class WatsonHelper{
   }
 
   getTranscript(){
-    this.transcript;
+    return this.transcript;
   }
 
   printTranscript(){

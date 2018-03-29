@@ -36,6 +36,9 @@ module.exports = app => {
           );
           watsonHelper.setAudioFilePath(audioFilePath);
           watsonHelper.recognize();
+		  console.log(watsonHelper.getHesitations());
+		  console.log(watsonHelper.getTranscript());
+		  
           sessionController.addAudioMetaData({
             session_id: current_session,
             hesitations: watsonHelper.getHesitations(),
