@@ -19,53 +19,53 @@ var current_session = " ";
 var pml_ctr = 0;
 
 String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.split(search).join(replacement);
+  var target = this;
+  return target.split(search).join(replacement);
 };
 
 module.exports = app => {
   client.connect(sessionId => {
     client.subscribe(destination, (body, headers) => {
       switch (headers.MESSAGE_PREFIX) {
-
         case "count_hesitations":
-          body = unescape(body).replaceAll('+',' ');
-          var audioFilePath = 'server/files/' + body.split(" ")[1];
-          const watsonHelper = new WatsonHelper("17e708ba-8eb5-4085-aba1-675a426bc53d","KPKMNZsKUmsk");
+          body = unescape(body).replaceAll("+", " ");
+          var audioFilePath = "server/files/" + body.split(" ")[1];
+          const watsonHelper = new WatsonHelper(
+            "17e708ba-8eb5-4085-aba1-675a426bc53d",
+            "KPKMNZsKUmsk"
+          );
           watsonHelper.setAudioFilePath(audioFilePath);
           watsonHelper.recognize();
-          watsonHelper.printTranscript();
-          console.log(watsonHelper.getHesitations());
-          break;
-
-        case "ADD_USER":
-          userController.stompCreate(body);
-          console.log("User Added!");
+          sessionController.addAudioMetaData({
+            session_id: current_session,
+            hesitations: watsonHelper.getHesitations(),
+            transcript: watsonHelper.getTranscript()
+          });
           break;
 
         case "add_session":
-		      body = unescape(body).replaceAll('+',' ');
+          body = unescape(body).replaceAll("+", " ");
           var components = body.split(" ");
           console.log(components);
 
-		  sessionController.stompCreate({
+          sessionController.stompCreate({
             user_id: components[1],
             session_id: components[2],
             duration: components[3],
             video_file_id: components[4],
             audio_file_id: components[5]
           });
-		  console.log("Session Added");
+          console.log("Session Added");
           current_session = components[2];
           pml_ctr = 0;
           break;
 
         case "vrPerception":
-		  body = unescape(body).replaceAll('+',' ');
-		  //console.log(body)
-          var splitter = body.split(' ');
-          result = splitter.slice(0,2);
-          result.push(splitter.slice(2).join(' '));
+          body = unescape(body).replaceAll("+", " ");
+          //console.log(body)
+          var splitter = body.split(" ");
+          result = splitter.slice(0, 2);
+          result.push(splitter.slice(2).join(" "));
           //console.log(result[2]);
           $ = cheerio.load(result[2]);
           var au_evidence = [];
@@ -82,7 +82,6 @@ module.exports = app => {
             .each(function(j, item) {
               au_activation[j] = $(this).text() == "true";
             });
-
 
           pmlController.stompCreate({
             pml_file_id: current_session + "_pml_" + String(pml_ctr),
@@ -109,24 +108,27 @@ module.exports = app => {
             action_unit_evidence: au_evidence,
             action_unit_activation: au_activation,
             session_id: current_session,
-			frame_timestamp: Math.round(Number($("headPose").find("timestamp").html()))
+            frame_timestamp: Math.round(
+              Number(
+                $("headPose")
+                  .find("timestamp")
+                  .html()
+              )
+            )
           });
-
 
           //console.log(k);
           pml_ctr = pml_ctr + 1;
           break;
-
       }
     });
   });
 
-
   app.use(cors());
-  app.get("/report",(req,res)=>{
+  app.get("/report", (req, res) => {
     res.status(200).send({
-      message : "BOO!"
-    })
+      message: "BOO!"
+    });
   });
 
   app.use((req, res, next) => {
@@ -185,8 +187,8 @@ module.exports = app => {
   app.get("/video/:sessionid/:videofile", (req, res) => {
     //videoController.getVideoFileName(req.params.videoid)
 
-    const path = "server/files/" + req.params.sessionid + "/" + req.params.videofile;
-
+    const path =
+      "server/files/" + req.params.sessionid + "/" + req.params.videofile;
 
     const stat = fs.statSync(path);
     const fileSize = stat.size;
