@@ -27,8 +27,8 @@
     "morgan": "^1.8.2",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
     "sequelize": "^4.37.4",
     "stomp-client": "^0.9.0",
@@ -43,6 +43,6 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "nodemon": "^1.12.1",
-    "webpack": "^4.1.1"
+    "webpack": "^4.4.1"
   }
 }
