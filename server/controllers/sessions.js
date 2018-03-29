@@ -29,9 +29,20 @@ module.exports = {
         .catch(error => console.log(error))
     },
 
+    addAudioMetaData(data){
+        Sessions.update({
+            hesitations : data.hesitations,
+            transcript : data.transcript
+        },{
+            where : {
+                session_id : data.session_id
+            }
+        })
+    },
+
     list(req, res){
-        Sessions.findAll({
-            attributes : ['session_id', 'user_id', 'start_time', 'end_time', 'audio_file_id', 'video_file_id']
+        Sessions.all({
+            
         })
         .then(session => res.status(201).send(session))
         .catch(error => res.status(400).send(error));
@@ -39,7 +50,6 @@ module.exports = {
 
     getUserSessions(req, res){
         Sessions.findAll({
-            attributes : ['session_id', 'user_id', 'start_time', 'end_time', 'audio_file_id', 'video_file_id'],
             where : {
                 user_id : req.params.userid
             }

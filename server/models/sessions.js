@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
     audio_file_id : {
       type : DataTypes.STRING,
       allowNull : false
+    },
+
+    hesitations : {
+      type : DataTypes.INTEGER
+    },
+
+    transcript : {
+      type : DataTypes.STRING
     }
 
   });
