@@ -12,6 +12,7 @@ const ffmpeg = require("fluent-ffmpeg");
 const WatsonHelper = require("../watson/watson.js");
 const destination = "/topic/DEFAULT_SCOPE";
 const client = new Stomp("127.0.0.1", 61613, "", "");
+const opn = require("opn");
 var current_session = " ";
 var pml_ctr = 0;
 
@@ -36,14 +37,15 @@ module.exports = app => {
           );
           watsonHelper.setAudioFilePath(audioFilePath);
           watsonHelper.recognize();
-		  console.log(watsonHelper.getHesitations());
-		  console.log(watsonHelper.getTranscript());
 
           sessionController.addAudioMetaData({
             session_id: current_session,
             hesitations: watsonHelper.getHesitations(),
             transcript: watsonHelper.getTranscript()
           });
+
+          opn('http://localhost:3000/#/report/' + current_session);
+
           break;
 
         case "add_session":
