@@ -66,6 +66,16 @@ module.exports = {
         })
         .then(pml => res.status(201).send(pml))
         .catch(error=>res.status(400).send(error))
+    },
+
+    getSessionPMLData(req, res){
+      PML.findAll({
+        where : {
+          session_id : req.params.sessionid
+        }
+      })
+      .then(pml=>res.status(201).send(pml))
+      .catch(err=>res.status(400).send(err));
     }
 
 }

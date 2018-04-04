@@ -48,16 +48,5 @@ module.exports = (sequelize, DataTypes) => {
 
   });
 
-  //Add constraints for Sessions
-
-  Sessions.associate = (models) =>{
-
-    Sessions.belongsTo(models.Users,{
-      foreignKey : 'user_id',
-      onDelete : 'CASCADE'
-    });
-
-  }
-
   return Sessions;
 };

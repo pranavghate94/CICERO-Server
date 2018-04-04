@@ -38,7 +38,7 @@ module.exports = app => {
           watsonHelper.recognize();
 		  console.log(watsonHelper.getHesitations());
 		  console.log(watsonHelper.getTranscript());
-		  
+
           sessionController.addAudioMetaData({
             session_id: current_session,
             hesitations: watsonHelper.getHesitations(),
@@ -161,7 +161,8 @@ module.exports = app => {
   //PML
   app.get("/api/pml", pmlController.list);
   app.post("/api/pml", pmlController.create);
-  app.get("/api/pml/:pmlfileid", pmlController.getPMLInfo);
+  //app.get("/api/pml/:pmlfileid", pmlController.getPMLInfo);
+  app.get("/api/pml/:sessionid", pmlController.getSessionPMLData);
   app.get("/api/pml/:sessionid/audata", pmlController.getPMLAUInfo);
 
   //SessionPML

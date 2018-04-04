@@ -42,7 +42,7 @@ module.exports = {
 
     list(req, res){
         Sessions.all({
-            
+
         })
         .then(session => res.status(201).send(session))
         .catch(error => res.status(400).send(error));
@@ -50,7 +50,7 @@ module.exports = {
 
     getUserSessions(req, res){
         Sessions.findAll({
-			attributes : ['user_id','session_id', 'start_time', 'end_time' ,'audio_file_id','video_file_id'],
+			attributes : ['user_id','session_id', 'start_time', 'end_time' ,'audio_file_id','video_file_id','hesitations','transcript'],
             where : {
                 user_id : req.params.userid
             }
@@ -63,9 +63,11 @@ module.exports = {
         Sessions.find({
             where: {
                 session_id : req.params.session_id
-            }
+            },
+            attributes : ['user_id','session_id', 'start_time', 'end_time' ,'audio_file_id','video_file_id','hesitations','transcript']
         })
         .then(session => res.status(201).send(session))
         .catch(err => res.status(400).send(err));
-    }
+    },
+
 }
