@@ -28,10 +28,10 @@ module.exports = app => {
   client.connect(sessionId => {
     client.subscribe(destination, (body, headers) => {
       switch (headers.MESSAGE_PREFIX) {
-        case "count_hesitations":
+        case "generate_report_p":
           body = unescape(body).replaceAll("+", " ");
           var audioFilePath = "server/files/" + body.split(" ")[1];
-          const watsonHelper = new WatsonHelper(
+          var watsonHelper = new WatsonHelper(
             "17e708ba-8eb5-4085-aba1-675a426bc53d",
             "KPKMNZsKUmsk"
           );
@@ -44,8 +44,27 @@ module.exports = app => {
             transcript: watsonHelper.getTranscript()
           });
 
-          opn('http://localhost:3000/#/report/' + current_session);
+          opn('http://localhost:3000/#/report/' + current_session + '/1');
 
+          break;
+
+        case "generate_report_np":
+          body = unescape(body).replaceAll("+", " ");
+          var audioFilePath = "server/files/" + body.split(" ")[1];
+          var watsonHelper = new WatsonHelper(
+            "17e708ba-8eb5-4085-aba1-675a426bc53d",
+            "KPKMNZsKUmsk"
+          );
+          watsonHelper.setAudioFilePath(audioFilePath);
+          watsonHelper.recognize();
+
+          sessionController.addAudioMetaData({
+            session_id: current_session,
+            hesitations: watsonHelper.getHesitations(),
+            transcript: watsonHelper.getTranscript()
+          });
+
+          opn('http://localhost:3000/#/report/' + current_session + '/2');
           break;
 
         case "add_session":
